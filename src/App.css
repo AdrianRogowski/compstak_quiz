@@ -16,6 +16,11 @@
 .quiz-question {
   font-size: 1.5rem;
   margin-bottom: 1rem;
+  padding: 0 0.5rem;
+}
+
+.question-wrapper {
+  padding: 0 0.5rem;
 }
 
 .option-btn {
@@ -25,8 +30,8 @@
   color: white;
   cursor: pointer;
   font-size: 1rem;
-  margin: 0.5rem;
-  padding: 0.5rem 0; /* Remove horizontal padding */
+  margin: 0.5rem 0;
+  padding: 0.5rem; /* Remove horizontal padding */
   text-align: center; /* Center the text */
   text-transform: capitalize;
   transition: background-color 0.3s;

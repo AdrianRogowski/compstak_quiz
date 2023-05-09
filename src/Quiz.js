@@ -57,7 +57,7 @@ const Quiz = () => {
           )}
         </div>
       ) : (
-        <div>
+        <div class="question-wrapper">
           <h2 className="quiz-question">{shuffledQuestions[currentQuestion].question}</h2>
           {shuffledQuestions[currentQuestion].options.map((option, index) => (
             <button key={index} className="option-btn" onClick={() => handleAnswerClick(option)}>
