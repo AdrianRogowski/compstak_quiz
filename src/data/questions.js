@@ -23,5 +23,65 @@ export const questions = [
     ],
     correctAnswer: "The interest rate at which a property's net present value is zero",
   },
+  {
+    id: 3,
+    question: "What is a sale-leaseback transaction?",
+    options: [
+    "A transaction in which the owner sells the property and then leases it back",
+    "A transaction in which the owner leases the property before selling it",
+    "A transaction in which a tenant buys a property and then leases it",
+    "A transaction in which the owner sells the property and the buyer leases it",
+    "A transaction in which a property is sold and then leased by a third party",
+    ],
+    correctAnswer: "A transaction in which the owner sells the property and then leases it back",
+    },
+    {
+    id: 4,
+    question: "What is a tenant improvement allowance?",
+    options: [
+    "The amount a landlord contributes towards a tenant's moving expenses",
+    "The amount a landlord contributes towards a tenant's utility costs",
+    "The amount a landlord contributes towards a tenant's security deposit",
+    "The amount a landlord contributes towards a tenant's insurance premiums",
+    "The amount a landlord contributes towards a tenant's build-out or space improvements",
+    ],
+    correctAnswer: "The amount a landlord contributes towards a tenant's build-out or space improvements",
+    },
+    {
+    id: 5,
+    question: "What is a mortgage?",
+    options: [
+    "A type of lease agreement",
+    "A document that grants ownership of real property",
+    "A loan to purchase real property",
+    "A fee paid to a real estate agent",
+    "A tax on the sale of real property",
+    ],
+    correctAnswer: "A loan to purchase real property",
+    },
+    {
+    id: 6,
+    question: "What is a leasehold estate?",
+    options: [
+    "A type of ownership interest in real property",
+    "An agreement to lease personal property",
+    "An agreement to lease real property",
+    "A tax on the rental of real property",
+    "A fee paid to a property manager",
+    ],
+    correctAnswer: "An agreement to lease real property",
+    },
+    {
+    id: 7,
+    question: "What is the difference between a lease and a rental agreement?",
+    options: [
+    "There is no difference",
+    "A lease is for a longer period of time than a rental agreement",
+    "A rental agreement is for a longer period of time than a lease",
+    "A lease includes the option to buy the property, a rental agreement does not",
+    "A rental agreement includes the option to buy the property, a lease does not",
+    ],
+    correctAnswer: "A lease is for a longer period of time than a rental agreement",
+    },
   // ... add the remaining 23 questions here
 ];
