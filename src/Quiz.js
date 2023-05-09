@@ -37,15 +37,15 @@ const Quiz = () => {
         </div>
       ) : (
         <div>
-          <h2>{questions[currentQuestion].question}</h2>
+          <h2 className="quiz-question">{questions[currentQuestion].question}</h2>
           {questions[currentQuestion].options.map((option, index) => (
-            <button key={index} onClick={() => handleAnswerClick(option)}>
+            <button key={index} className="option-btn" onClick={() => handleAnswerClick(option)}>
               {option}
             </button>
           ))}
         </div>
       )}
-      <div>Score: {score}</div>
+      <div className="score">Score: {score}</div>
     </div>
   );
 };
