@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { questions } from './data/questions';
+import './App.css';
 
 const Quiz = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -38,7 +39,7 @@ const Quiz = () => {
     setTimeout(() => {
       setShowResult(false);
       setCurrentQuestion(currentQuestion + 1);
-    }, 2000);
+    }, 4000);
   };
 
   if (!shuffledQuestions[currentQuestion]) {
@@ -47,24 +48,24 @@ const Quiz = () => {
 
   return (
     <div>
-      {showResult ? (
-        <div>
-          {isAnswerCorrect ? "Correct" : "Incorrect"}
-          {!isAnswerCorrect && (
-            <div>Correct answer: {shuffledQuestions[currentQuestion].correctAnswer}</div>
-          )}
-        </div>
-      ) : (
-        <div>
-          <h2 className="quiz-question">{shuffledQuestions[currentQuestion].question}</h2>
-          {shuffledQuestions[currentQuestion].options.map((option, index) => (
-            <button key={index} className="option-btn" onClick={() => handleAnswerClick(option)}>
-              {option}
-            </button>
-          ))}
-        </div>
-      )}
-      <div className="score">Score: {score}</div>
+        <div className="score">Score: {score}</div>
+        <h2 className="quiz-question">{shuffledQuestions[currentQuestion].question}</h2>
+            <div class="question-wrapper">
+            {showResult ? (
+                <div className={`result-screen ${isAnswerCorrect ? 'correct' : 'incorrect'}`}>
+                <h2>{isAnswerCorrect ? "Correct" : "Incorrect"}</h2>
+                <div class="correct-answer">{!isAnswerCorrect ? "Correct answer: " : ""}{shuffledQuestions[currentQuestion].correctAnswer}</div>
+                </div>
+            ) : (
+                <div>
+                {shuffledQuestions[currentQuestion].options.map((option, index) => (
+                    <button key={index} className="option-btn" onClick={() => handleAnswerClick(option)}>
+                    {option}
+                    </button>
+                ))}
+                </div>
+            )}
+            </div>
     </div>
   );
 };
