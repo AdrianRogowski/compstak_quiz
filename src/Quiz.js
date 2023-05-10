@@ -6,6 +6,7 @@ const Quiz = () => {
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [shuffledQuestions, setShuffledQuestions] = useState([]);
+  const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
 
   useEffect(() => {
     setShuffledQuestions(shuffleArray([...questions]));
@@ -28,22 +29,19 @@ const Quiz = () => {
   const handleAnswerClick = (answer) => {
     if (answer === shuffledQuestions[currentQuestion]?.correctAnswer) {
       setScore(score + 1);
-      setShowResult(true);
-      setTimeout(() => {
-        setShowResult(false);
-        setCurrentQuestion(currentQuestion + 1);
-      }, 2000);
+      setIsAnswerCorrect(true);
     } else {
-      setShowResult(true);
-      setTimeout(() => {
-        setShowResult(false);
-        setScore(0);
-        setCurrentQuestion(0);
-      }, 2000);
+      setScore(0);
+      setIsAnswerCorrect(false);
     }
+    setShowResult(true);
+    setTimeout(() => {
+      setShowResult(false);
+      setCurrentQuestion(currentQuestion + 1);
+    }, 2000);
   };
 
-  if (shuffledQuestions.length === 0) {
+  if (!shuffledQuestions[currentQuestion]) {
     return <div>Loading...</div>;
   }
 
@@ -51,13 +49,13 @@ const Quiz = () => {
     <div>
       {showResult ? (
         <div>
-          {score > 0 ? "Correct" : "Incorrect"}
-          {score === 0 && (
+          {isAnswerCorrect ? "Correct" : "Incorrect"}
+          {!isAnswerCorrect && (
             <div>Correct answer: {shuffledQuestions[currentQuestion].correctAnswer}</div>
           )}
         </div>
       ) : (
-        <div class="question-wrapper">
+        <div>
           <h2 className="quiz-question">{shuffledQuestions[currentQuestion].question}</h2>
           {shuffledQuestions[currentQuestion].options.map((option, index) => (
             <button key={index} className="option-btn" onClick={() => handleAnswerClick(option)}>
