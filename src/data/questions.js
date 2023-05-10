@@ -83,5 +83,17 @@ export const questions = [
     ],
     correctAnswer: "A lease is for a longer period of time than a rental agreement",
     },
+    {
+      id: 8,
+      question: "What is the difference between equity and debt financing for commercial real estate investments?",
+      options: [
+        "Equity financing involves borrowing money, while debt financing involves investing capital",
+        "Equity financing involves selling ownership stakes in a property, while debt financing involves taking out loans",
+        "Equity financing involves investing capital, while debt financing involves borrowing money",
+        "Equity financing involves leasing a property, while debt financing involves buying it outright",
+        "There is no difference between the two",
+      ],
+      correctAnswer: "Equity financing involves selling ownership stakes in a property, while debt financing involves taking out loans",
+    },
   // ... add the remaining 23 questions here
 ];
