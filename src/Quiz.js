@@ -4,12 +4,13 @@ import { firestore } from './firebaseConfig';
 import './App.css';
 import { collection, query, orderBy, limit, getDocs, addDoc } from 'firebase/firestore';
 
-const Quiz = () => {
+const Quiz = ({ introHighScores }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [shuffledQuestions, setShuffledQuestions] = useState([]);
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
+  const [showHighScoreForm, setShowHighScoreForm] = useState(false);
 
   const [highScores, setHighScores] = useState([]);
 
@@ -28,6 +29,7 @@ const Quiz = () => {
   const saveHighScore = async (name, score) => {
     const highScoresRef = collection(firestore, 'highscores');
     await addDoc(highScoresRef, { name, score });
+    fetchHighScores();
   };
 
   useEffect(() => {
@@ -49,10 +51,7 @@ const Quiz = () => {
   };
 
   const checkHighScore = () => {
-    const playerName = prompt('Enter your name for the high score:');
-    if (playerName) {
-      saveHighScore(playerName, score);
-    }
+    setShowHighScoreForm(true);
   };
   
   const handleAnswerClick = (answer) => {
@@ -71,6 +70,16 @@ const Quiz = () => {
     }, 4000);
   };
   
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const playerName = e.target.playerName.value;
+    if (playerName) {
+      saveHighScore(playerName, score);
+    }
+    setScore(0);
+    setShowHighScoreForm(false);
+    setCurrentQuestion(currentQuestion + 1);
+  };  
 
   if (!shuffledQuestions[currentQuestion]) {
     return <div>Loading...</div>;
@@ -78,26 +87,36 @@ const Quiz = () => {
 
   return (
     <div>
-        <div className="score">Score: {score}</div>
-        <h2 className="quiz-question">{shuffledQuestions[currentQuestion].question}</h2>
-            <div class="question-wrapper">
+      {showHighScoreForm ? (
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="playerName">Enter your name for the high score:</label>
+          <input type="text" name="playerName" required />
+          <button type="submit">Submit</button>
+        </form>
+      ) : (
+        <div>
+          <div className="score">Score: {score}</div>
+          <h2 className="quiz-question">{shuffledQuestions[currentQuestion].question}</h2>
+          <div className="question-wrapper">
             {showResult ? (
-                <div className={`result-screen ${isAnswerCorrect ? 'correct' : 'incorrect'}`}>
+              <div className={`result-screen ${isAnswerCorrect ? 'correct' : 'incorrect'}`}>
                 <h2>{isAnswerCorrect ? "Correct" : "Incorrect"}</h2>
-                <div class="correct-answer">{!isAnswerCorrect ? "Correct answer: " : ""}{shuffledQuestions[currentQuestion].correctAnswer}</div>
-                </div>
+                <div className="correct-answer">{!isAnswerCorrect ? "Correct answer: " : ""}{shuffledQuestions[currentQuestion].correctAnswer}</div>
+              </div>
             ) : (
-                <div>
+              <div>
                 {shuffledQuestions[currentQuestion].options.map((option, index) => (
-                    <button key={index} className="option-btn" onClick={() => handleAnswerClick(option)}>
+                  <button key={index} className="option-btn" onClick={() => handleAnswerClick(option)}>
                     {option}
-                    </button>
+                  </button>
                 ))}
-                </div>
+              </div>
             )}
-            </div>
+          </div>
+        </div>
+      )}
     </div>
-  );
+  )
 };
 
 export default Quiz;
