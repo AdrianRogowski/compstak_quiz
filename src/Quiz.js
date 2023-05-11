@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { questions } from './data/questions';
-import { firestore } from './firebaseConfig';
+import { realtimeDatabase } from './firebaseConfig';
 import './App.css';
-import { collection, query, orderBy, limit, getDocs, addDoc } from 'firebase/firestore';
+import { ref, get, onValue, push, set } from 'firebase/database';
 
 const Quiz = ({ introHighScores }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -19,16 +19,24 @@ const Quiz = ({ introHighScores }) => {
   }, []);
 
   const fetchHighScores = async () => {
-    const highScoresRef = collection(firestore, 'highscores');
-    const highScoresQuery = query(highScoresRef, orderBy('score', 'desc'), limit(10));
-    const snapshot = await getDocs(highScoresQuery);
-    const scores = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    setHighScores(scores);
-  };
-
+    const highScoresRef = ref(realtimeDatabase, 'highscores');
+    const snapshot = await get(highScoresRef);
+    
+    if (snapshot.exists()) {
+      const scores = Object.keys(snapshot.val()).map(key => ({
+        id: key,
+        ...snapshot.val()[key]
+      }));
+      setHighScores(scores);
+    } else {
+      console.log('No data available');
+    }
+  };  
+  
   const saveHighScore = async (name, score) => {
-    const highScoresRef = collection(firestore, 'highscores');
-    await addDoc(highScoresRef, { name, score });
+    const highScoresRef = ref(realtimeDatabase, 'highscores/');
+    const newHighScoreRef = push(highScoresRef);
+    await set(newHighScoreRef, { name, score });
     fetchHighScores();
   };
 
