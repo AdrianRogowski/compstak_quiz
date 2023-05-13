@@ -1,5 +1,11 @@
 /* src/App.css */
 
+@media (max-width: 600px) {
+  .App {
+    padding: 0 10px; /* Add some side padding on small screens */
+  }
+}
+
 .App {
   text-align: center;
   max-width: 800px;
@@ -11,27 +17,53 @@
   background-color: #282c34;
   color: white;
   padding: 2rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.highscores {
+  max-width: 400px;
+  margin: 0 auto;
+  border-radius: 4px;
+  margin-bottom: 2rem;
+}
+
+.highscores h2 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.highscores ol {
+  padding-left: 1rem;
+}
+
+.highscores li {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.highscores li:last-child {
+  border-bottom: none; /* Remove the border for the last item */
 }
 
 .quiz-question {
   font-size: 1.5rem;
   margin-bottom: 1rem;
-  padding: 0 0.5rem;
+  color: #333;
 }
 
 .option-btn {
-  background-color: #28a745; /* Green background color */
+  background-color: #28a745;
   border: none;
   border-radius: 5px;
   color: white;
   cursor: pointer;
   font-size: 1rem;
   margin: 0.5rem 0;
-  padding: 0.5rem; /* Remove horizontal padding */
-  text-align: center; /* Center the text */
+  padding: 0.5rem;
+  text-align: center;
   text-transform: capitalize;
   transition: background-color 0.3s;
-  width: 100%; /* Set a fixed width */
+  width: 100%;
 }
 
 .option-btn:hover {
@@ -39,20 +71,24 @@
 }
 
 .result-screen {
-  padding: 15px 15px 25px;
+  padding: 15px;
+  margin: 15px;
+  border-radius: 5px;
+  color: white;
 }
 
 .result-screen.correct {
-  background: rgb(202, 255, 202);
+  background-color: #28a745;
 }
 
 .result-screen.incorrect {
-  background: rgb(255, 221, 227);
+  background-color: #dc3545;
 }
 
 .score {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   margin-top: 2rem;
+  color: #333;
 }
 
 .question-wrapper {
@@ -62,4 +98,39 @@
 
 .correct-answer {
   font-size: 1.25rem;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #5a9; /* A different shade of green */
+}
+
+button:active {
+  transform: scale(0.98); /* Slightly reduces the size of the button */
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+form input {
+  padding: 10px;
+  margin: 10px 0;
+  width: 100%;
+  max-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
