@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { questions } from './data/questions';
 import { realtimeDatabase } from './firebaseConfig';
 import './App.css';
-import { ref, get, onValue, push, set } from 'firebase/database';
+import { ref, get, push, set } from 'firebase/database';
 
-const Quiz = ({ introHighScores }) => {
+const Quiz = ({ initialHighScores, endGame, fetchHighScores }) => {
+  console.log('Rendering Quiz component');
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
@@ -12,27 +13,12 @@ const Quiz = ({ introHighScores }) => {
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
   const [showHighScoreForm, setShowHighScoreForm] = useState(false);
 
-  const [highScores, setHighScores] = useState([]);
+  const [highScores, setHighScores] = useState(initialHighScores);
 
   useEffect(() => {
-    fetchHighScores();
-  }, []);
+    setHighScores(initialHighScores);
+  }, [initialHighScores]);
 
-  const fetchHighScores = async () => {
-    const highScoresRef = ref(realtimeDatabase, 'highscores');
-    const snapshot = await get(highScoresRef);
-    
-    if (snapshot.exists()) {
-      const scores = Object.keys(snapshot.val()).map(key => ({
-        id: key,
-        ...snapshot.val()[key]
-      }));
-      setHighScores(scores);
-    } else {
-      console.log('No data available');
-    }
-  };  
-  
   const saveHighScore = async (name, score) => {
     const highScoresRef = ref(realtimeDatabase, 'highscores/');
     const newHighScoreRef = push(highScoresRef);
@@ -41,53 +27,56 @@ const Quiz = ({ introHighScores }) => {
   };
 
   useEffect(() => {
-    setShuffledQuestions(shuffleArray([...questions]));
-  }, []);
+    if (currentQuestion > 0 && currentQuestion >= shuffledQuestions.length) {
+      console.log('Calling endGame due to no more questions');
+      endGame();
+    }
+  }, [currentQuestion, shuffledQuestions, endGame]);
 
   useEffect(() => {
-    if (currentQuestion >= shuffledQuestions.length) {
-      setCurrentQuestion(0);
-    }
-  }, [currentQuestion, shuffledQuestions]);
+    const shuffled = shuffleArray([...questions]);
+    setShuffledQuestions(shuffled);
+  }, []);
 
   const shuffleArray = (array) => {
-    for (let i = array.length - 1; i > 0; i--) {
+    let shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
-    return array;
+    return shuffled;
   };
 
-  const checkHighScore = () => {
-    setShowHighScoreForm(true);
-  };
-  
   const handleAnswerClick = (answer) => {
     if (answer === shuffledQuestions[currentQuestion]?.correctAnswer) {
       setScore(score + 1);
       setIsAnswerCorrect(true);
     } else {
-      setScore(0);
       setIsAnswerCorrect(false);
-      checkHighScore();
+      if (score >= Math.min(...highScores.map(score => score.score))) {
+        setShowHighScoreForm(true);
+      } else {
+        console.log('Calling endGame due to incorrect answer and low score');
+        endGame();
+      }
     }
     setShowResult(true);
     setTimeout(() => {
       setShowResult(false);
       setCurrentQuestion(currentQuestion + 1);
-    }, 4000);
+    }, 2000);
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const playerName = e.target.playerName.value;
-    if (playerName) {
-      saveHighScore(playerName, score);
+    if (playerName) {    saveHighScore(playerName, score);
     }
     setScore(0);
     setShowHighScoreForm(false);
-    setCurrentQuestion(currentQuestion + 1);
-  };  
+    console.log('Calling endGame after submitting high score');
+    endGame();
+  };
 
   if (!shuffledQuestions[currentQuestion]) {
     return <div>Loading...</div>;
@@ -108,23 +97,23 @@ const Quiz = ({ introHighScores }) => {
           <div className="question-wrapper">
             {showResult ? (
               <div className={`result-screen ${isAnswerCorrect ? 'correct' : 'incorrect'}`}>
-                <h2>{isAnswerCorrect ? "Correct" : "Incorrect"}</h2>
-                <div className="correct-answer">{!isAnswerCorrect ? "Correct answer: " : ""}{shuffledQuestions[currentQuestion].correctAnswer}</div>
-              </div>
-            ) : (
-              <div>
-                {shuffledQuestions[currentQuestion].options.map((option, index) => (
-                  <button key={index} className="option-btn" onClick={() => handleAnswerClick(option)}>
-                    {option}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
+              <h2>{isAnswerCorrect ? "Correct" : "Incorrect"}</h2>
+              <div className="correct-answer">{!isAnswerCorrect ? "Correct answer: " : ""}{shuffledQuestions[currentQuestion].correctAnswer}</div>
+            </div>
+          ) : (
+            <div>
+              {shuffledQuestions[currentQuestion].options.map((option, index) => (
+                <button key={index} className="option-btn" onClick={() => handleAnswerClick(option)}>
+                  {option}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
-      )}
-    </div>
-  )
+      </div>
+    )}
+  </div>
+)
 };
 
 export default Quiz;

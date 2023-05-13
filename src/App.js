@@ -11,32 +11,46 @@ const App = () => {
   const [highScores, setHighScores] = useState([]);
 
   useEffect(() => {
+    console.log('isGameStarted:', isGameStarted);
+  }, [isGameStarted]);
+
+  useEffect(() => {
     fetchHighScores();
-  }, []);
+  }, [isGameStarted]);
 
   const fetchHighScores = async () => {
-    const highScoresRef = ref(realtimeDatabase, 'highscores');
-    const snapshot = await get(highScoresRef);
-    
-    if (snapshot.exists()) {
-      const scores = Object.keys(snapshot.val()).map(key => ({
-        id: key,
-        ...snapshot.val()[key]
-      }));
-      setHighScores(scores);
-    } else {
-      console.log('No data available');
+    try {
+      const highScoresRef = ref(realtimeDatabase, 'highscores');
+      const snapshot = await get(highScoresRef);
+      
+      if (snapshot.exists()) {
+        const scores = Object.keys(snapshot.val()).map(key => ({
+          id: key,
+          ...snapshot.val()[key]
+        }));
+        setHighScores(scores);
+      } else {
+        console.log('No data available');
+      }
+    } catch (error) {
+      console.error('Error fetching high scores:', error);
     }
-  };  
+  }; 
+  
 
   const startGame = () => {
+    console.log('Game is starting...');
     setIsGameStarted(true);
+  };
+
+  const endGame = () => {
+    setIsGameStarted(false);
   };
 
   return (
     <div className="App">
       {isGameStarted ? (
-        <Quiz highScores={highScores} />
+        <Quiz initialHighScores={highScores} endGame={endGame} fetchHighScores={fetchHighScores} />
       ) : (
         <Intro highScores={highScores} startGame={startGame} />
       )}
