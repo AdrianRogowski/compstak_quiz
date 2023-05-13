@@ -24,10 +24,11 @@ const App = () => {
       const snapshot = await get(highScoresRef);
       
       if (snapshot.exists()) {
-        const scores = Object.keys(snapshot.val()).map(key => ({
+        let scores = Object.keys(snapshot.val()).map(key => ({
           id: key,
           ...snapshot.val()[key]
         }));
+        scores = scores.sort((a, b) => b.score - a.score); // sorts scores in descending order
         setHighScores(scores);
       } else {
         console.log('No data available');
@@ -35,9 +36,8 @@ const App = () => {
     } catch (error) {
       console.error('Error fetching high scores:', error);
     }
-  }; 
-  
-
+  };
+   
   const startGame = () => {
     console.log('Game is starting...');
     setIsGameStarted(true);

@@ -53,19 +53,20 @@ const Quiz = ({ initialHighScores, endGame, fetchHighScores }) => {
       setIsAnswerCorrect(true);
     } else {
       setIsAnswerCorrect(false);
-      if (score >= Math.min(...highScores.map(score => score.score))) {
-        setShowHighScoreForm(true);
-      } else {
-        console.log('Calling endGame due to incorrect answer and low score');
-        endGame();
-      }
+      setTimeout(() => {
+        if (score >= Math.min(...highScores.map(score => score.score))) {
+          setShowHighScoreForm(true);
+        } else {
+          endGame();
+        }
+      }, 2000);
     }
     setShowResult(true);
     setTimeout(() => {
       setShowResult(false);
       setCurrentQuestion(currentQuestion + 1);
     }, 2000);
-  };
+  };  
 
   const handleSubmit = (e) => {
     e.preventDefault();
