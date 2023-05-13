@@ -54,7 +54,7 @@ const Quiz = ({ initialHighScores, endGame, fetchHighScores }) => {
     } else {
       setIsAnswerCorrect(false);
       setTimeout(() => {
-        if (score >= Math.min(...highScores.map(score => score.score))) {
+        if (score > 0 && score >= Math.min(...highScores.map(score => score.score))) {
           setShowHighScoreForm(true);
         } else {
           endGame();
@@ -66,7 +66,7 @@ const Quiz = ({ initialHighScores, endGame, fetchHighScores }) => {
       setShowResult(false);
       setCurrentQuestion(currentQuestion + 1);
     }, 2000);
-  };  
+  };   
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -29,6 +29,7 @@ const App = () => {
           ...snapshot.val()[key]
         }));
         scores = scores.sort((a, b) => b.score - a.score); // sorts scores in descending order
+        scores = scores.slice(0, 10); // limits to top 10 scores
         setHighScores(scores);
       } else {
         console.log('No data available');
@@ -36,7 +37,7 @@ const App = () => {
     } catch (error) {
       console.error('Error fetching high scores:', error);
     }
-  };
+  };  
    
   const startGame = () => {
     console.log('Game is starting...');
