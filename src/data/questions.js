@@ -95,5 +95,113 @@ export const questions = [
       ],
       correctAnswer: "Equity financing involves selling ownership stakes in a property, while debt financing involves taking out loans",
     },
+    {
+      "id": 9,
+      "question": "What is the capitalization rate in real estate?",
+      "options": [
+        "The ratio of net operating income to property asset value",
+        "The total cost of constructing a property, including both material and labor costs",
+        "The process of estimating the value of a property",
+        "The total income that a property generates in a year",
+        "The interest rate of a mortgage"
+      ],
+      "correctAnswer": "The ratio of net operating income to property asset value"
+    },
+    {
+      "id": 10,
+      "question": "Which of these is considered a Class A property?",
+      "options": [
+        "Older property located in less desirable area",
+        "Property that requires extensive renovation",
+        "Newer property located in a prime urban location, with high quality construction and management",
+        "All commercial real estate is classified as Class A",
+        "Properties that are typically targeted by investors"
+      ],
+      "correctAnswer": "Newer property located in a prime urban location, with high quality construction and management"
+    },
+    {
+      "id": 11,
+      "question": "What is a triple net lease?",
+      "options": [
+        "A lease in which the tenant is responsible for all property related risks",
+        "A lease where the rent includes one net of the three nets--property taxes, insurance, and maintenance",
+        "A lease where the rent includes two nets of the three nets--property taxes, insurance, and maintenance",
+        "A lease where the tenant is responsible for rent and utilities only",
+        "A lease in which the landlord is responsible for all property related risks"
+      ],
+      "correctAnswer": "A lease in which the tenant is responsible for all property related risks"
+    },
+    {
+      "id": 12,
+      "question": "What is a commercial real estate 'walk-through'?",
+      "options": [
+        "The final inspection of a property before settlement or closing",
+        "A virtual tour of a property online",
+        "The process of getting a loan for a commercial real estate property",
+        "A type of lease where the tenant pays for their proportionate share of the property taxes, insurance, and maintenance",
+        "The process of determining the value of a property"
+      ],
+      "correctAnswer": "The final inspection of a property before settlement or closing"
+    },
+    {
+      "id": 13,
+      "question": "What is tenant improvement allowance?",
+      "options": [
+        "A sum of money granted by the landlord to help the tenant fit out or refurbish the rented space",
+        "The amount of money a tenant must pay if they break their lease early",
+        "The money a tenant must pay for maintenance and repairs",
+        "The cost of utilities in a commercial building",
+        "The amount a tenant must pay for rent"
+      ],
+      "correctAnswer": "A sum of money granted by the landlord to help the tenant fit out or refurbish the rented space"
+    },
+    {
+      "id": 14,
+      "question": "What is an anchor tenant in a commercial property?",
+      "options": [
+        "A tenant who lives in the property",
+        "The largest tenant in a shopping center or mall",
+        "A tenant who is late on rent",
+        "A tenant who has signed a triple net lease",
+        "A tenant who has a lease with a term of one year or less"
+      ],
+      "correctAnswer": "The largest tenant in a shopping center or mall"
+    },
+    {
+      "id": 15,
+      "question": "What does 'mixed-use' mean in commercial real estate?",
+      "options": [
+        "Properties that are used for both residential and commercial purposes",
+        "Properties that are used for both retail and industrial purposes",
+        "Properties that are used for both commercial and agricultural purposes",
+        "Properties that are used for both residential and agricultural purposes",
+        "All of the above"
+      ],
+      "correctAnswer": "Properties that are used for both residential and commercial purposes"
+    },
+    {
+      "id": 16,
+      "question": "What is a 'build to suit' lease?",
+      "options": [
+        "A lease in which the landlord builds a property to the tenant's specifications",
+        "A lease in which the tenant builds the property and then rents it from the landlord",
+        "A lease in which the tenant is responsible for all property-related expenses",
+        "A lease in which the landlord is responsible for all property-related expenses",
+        "A lease in which the tenant is responsible for property taxes, insurance, and maintenance"
+      ],
+      "correctAnswer": "A lease in which the landlord builds a property to the tenant's specifications"
+    },
+    {
+      "id": 17,
+      "question": "What does 'absorption rate' refer to in commercial real estate?",
+      "options": [
+        "The rate at which available properties in a specific real estate market are sold or rented",
+        "The rate at which new properties are added to the market",
+        "The rate at which property prices are increasing in a specific area",
+        "The rate at which a property appreciates in value over time",
+        "The rate at which mortgage interest rates are increasing"
+      ],
+      "correctAnswer": "The rate at which available properties in a specific real estate market are sold or rented"
+    },
   // ... add the remaining 23 questions here
 ];
